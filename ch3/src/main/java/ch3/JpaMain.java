@@ -34,5 +34,6 @@ public class JpaMain {
         study.modifyEntity(em);
         study.deleteEntity(em);
         study.testDetached(em);
+        study.mergeNewMember(em);
     }
 }

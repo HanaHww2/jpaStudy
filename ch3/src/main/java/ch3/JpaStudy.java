@@ -263,9 +263,22 @@ public class JpaStudy {
 
     /*
     * 병합 merge()
-    * 준영속 상태의 엔티티를 받아 새로운 영속 상태의 엔티티를 반환한다.
+    * 준영속 상태의 엔티티를 받아 새롭게 병합된 영속 상태의 엔티티를 반환한다.
+    * 병합은 비영속 엔티티를 받아 영속 상태의 엔티티를 반환할 수 있다.
+    * - 1차 캐시에서 찾는 엔티티가 없다면, DB에서 엔티티를 조회하여 1차 캐시에 저장한 다음 영속 엔티티를 병합해 반환한다.
+    * - DB에서도 조회할 수 없다면, DB에 엔티티를 등록하고 새로운 영속 엔티티를 반환한다.
     * */
+    public void mergeNewMember(EntityManager em) {
 
-    /* 준영속 병합 */
-    /* 비영속 병합 */
+        Member memberC = new Member();
+        memberC.setId("memberC");
+        memberC.setUsername("하나C");
+        memberC.setAge(33);
+
+        Member mergedMember = em.merge(memberC);
+
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        tx.commit();
+    }
 }
