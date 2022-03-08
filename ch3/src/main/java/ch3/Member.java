@@ -1,6 +1,9 @@
-package jpabook.ch2;
+package ch3;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity // 엔티티 클래스
 @Table(name="MEMBER") // 매핑할 테이블 정보
@@ -25,7 +28,6 @@ public class Member {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -33,7 +35,6 @@ public class Member {
     public Integer getAge() {
         return age;
     }
-
     public void setAge(Integer age) {
         this.age = age;
     }

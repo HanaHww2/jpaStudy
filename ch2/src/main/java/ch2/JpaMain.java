@@ -1,4 +1,4 @@
-package jpabook.ch2;
+package ch2;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,7 +16,7 @@ public class JpaMain {
         * - META-INF/persistence.xml 의 설정정보를 사용하여 엔티티 매니저 팩토리를 생성.
         * - 영속성 유닛 이름을 매개변수로 전달한다.
         * */
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ch2");
 
         /*
         * 엔티티 매니저 생성
