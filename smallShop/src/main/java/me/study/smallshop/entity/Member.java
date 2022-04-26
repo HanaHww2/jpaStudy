@@ -1,11 +1,13 @@
 package me.study.smallshop.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
+@NoArgsConstructor
 @Entity
 public class Member {
     @Id
@@ -17,4 +19,15 @@ public class Member {
     private String city;
     private String street;
     private String zipcode;
+
+    @OneToMany(mappedBy="member")
+    private List<Order> orders = new ArrayList<>();
+
+    @Builder
+    public Member(String name, String city, String street, String zipcode) {
+        this.name = name;
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
 }
