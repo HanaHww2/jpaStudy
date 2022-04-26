@@ -2,7 +2,6 @@ package me.study.smallshop.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,7 +22,11 @@ public class Order {
     private Member member;
 
     @OneToMany(mappedBy="order")
-    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name="DELIVERY_ID")
+    private Delivery delivery;
 
     @CreatedDate
     private LocalDateTime orderDate;
@@ -44,6 +47,12 @@ public class Order {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
+
     @Builder
     public Order(Member member, LocalDateTime orderDate, OrderStatus status) {
         this.member = member;
