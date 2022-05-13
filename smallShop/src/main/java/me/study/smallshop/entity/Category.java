@@ -2,6 +2,7 @@ package me.study.smallshop.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.study.smallshop.entity.item.Item;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Getter @Setter
 @Entity
-public class Category {
+public class Category extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "CATEGORY_ID")
