@@ -2,6 +2,7 @@ package me.study.smallshop.entity;
 
 
 import me.study.smallshop.entity.item.Item;
+import me.study.smallshop.entity.item.Movie;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,9 +25,9 @@ public class TestEntity {
 /*        EntityTransaction tx = em.getTransaction();
         tx.begin();*/
 
-        this.item = Item.builder()
-                .name("신발")
-                .price(1000)
+        this.item = Movie.builder()
+                .name("그래비티")
+                .price(10000)
                 .stockQuantity(100)
                 .build();
         em.persist(item);
@@ -68,6 +69,20 @@ public class TestEntity {
         OrderItem orderItem = order.getOrderItems().get(0);
         Item item = orderItem.getItem();
         Assertions.assertThat(item).isEqualTo(this.item);
+    }
+
+    @Test
+    void chkCascadeAll() {
+
+        Delivery delivery = new Delivery();
+        OrderItem orderItem1 = new OrderItem();
+        OrderItem orderItem2 = new OrderItem();
+
+        Order order = new Order();
+        order.setDelivery(delivery);
+        order.addOrderItem(orderItem1);
+        order.addOrderItem(orderItem2);
+        em.persist(order);
     }
 
 }
