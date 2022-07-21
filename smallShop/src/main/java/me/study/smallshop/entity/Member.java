@@ -15,6 +15,9 @@ public class Member extends BaseEntity{
     @Column(name="MEMBER_ID")
     private Long id;
 
+    // 서비스 레이어에서 검증로직을 적용했지만,
+    // 멀티 스레드 환경을 고려해 유니크 제약을 두는 것이 더 안전하다.
+    @Column(unique = true)
     private String name;
 
 //    private String city;

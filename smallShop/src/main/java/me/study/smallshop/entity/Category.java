@@ -27,7 +27,7 @@ public class Category extends BaseEntity{
     private List<Item> items = new ArrayList<>();
 
     /* 카테고리의 계층 구조를 위한 필드들 */
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="PARENT_ID")
     private Category parent;
 
