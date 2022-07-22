@@ -1,6 +1,7 @@
 package me.study.smallshop.entity;
 
 import lombok.*;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,6 +34,41 @@ public class Order extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    // 주문 생성 메소드
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order =new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    // 비즈니스 로직
+    /** 주문취소*/
+    public void cancel() {
+        if (delivery.getStatus() == DeliveryStatus.COMP) {
+            throw new RuntimeException("이미 배송 완료된 상품은 취소가 불가능합니다.");
+        }
+        this.setStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
+
+    // 조회 로직
+    /** 전체 주문 가격 조회 */
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
 
     public void setMember(Member member) {
         // 기존 멤버가 갖는 해당 주문 제거 (기존 관계 제거)
